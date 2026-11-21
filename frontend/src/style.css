@@ -1,0 +1,26 @@
+* { box-sizing: border-box; }
+body { margin: 0; background: #f4f6f2; color: #17372e; font-family: system-ui, sans-serif; }
+main { max-width: 800px; margin: 12vh auto; padding: 32px; }
+.eyebrow { font-size: 12px; font-weight: 750; letter-spacing: .18em; }
+h1 { font-size: clamp(36px, 7vw, 64px); line-height: 1.1; letter-spacing: -.04em; }
+.intro { max-width: 560px; line-height: 1.7; color: #596a61; }
+section { display: flex; gap: 16px; padding: 24px; margin: 32px 0 20px; background: white; border: 1px solid #d6dfd8; border-radius: 16px; }
+h2 { font-size: 18px; margin: 0 0 8px; }
+section p { margin: 0; color: #596a61; line-height: 1.5; }
+section form { border: 0; padding: 0; margin: 20px 0 0; }
+.dot { width: 12px; height: 12px; border-radius: 50%; background: #a2782f; margin-top: 6px; flex-shrink: 0; }
+.connected .dot { background: #238459; }
+.error .dot { background: #be493c; }
+button { background: #17372e; color: white; border: 0; padding: 13px 20px; border-radius: 8px; cursor: pointer; font: inherit; }
+button:disabled { opacity: .6; cursor: wait; }
+button:focus-visible { outline: 3px solid #a2782f; outline-offset: 4px; }
+form, article { background: white; border: 1px solid #d6dfd8; border-radius: 14px; padding: 24px; margin: 20px 0; }
+label { display: block; font-weight: 650; margin-bottom: 12px; }
+textarea { width: 100%; min-height: 160px; padding: 14px; font: inherit; line-height: 1.5; border: 1px solid #8da297; border-radius: 8px; resize: vertical; }
+.counter, .metadata { color: #596a61; font-size: 12px; }
+.note-text { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.65; }
+.error-message { color: #a12d24; }
+input, select { width: 100%; padding: 12px; font: inherit; margin-bottom: 16px; border: 1px solid #8da297; border-radius: 8px; }
+a { color: #236148; overflow-wrap: anywhere; }
+.list-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 40px; }
+.answer { background: #e7f0e8; border-radius: 14px; padding: 24px; margin-top: 20px; }
