@@ -20,14 +20,14 @@ Only public HTTP/HTTPS destinations on ports 80/443 are accepted. DNS addresses 
 
 Extraction is deliberately basic: scripts, styles, navigation, and common page furniture are removed. There is no browser rendering, login support, or PDF import. Ingestion runs in a synchronous FastAPI worker thread, with an importing state in the UI; durable background jobs are future work. Raw HTML is never rendered in the frontend.
 
-Verification (Windows): run `.venv\Scripts\python.exe -m unittest test_urls` and `.venv\Scripts\python.exe verify_notes.py` from backend. Integration checks use a temporary database and port 18001.
+Verification (Windows): run `.venv\Scripts\python.exe -m unittest test_search test_urls` and `.venv\Scripts\python.exe verify_notes.py` from backend. Integration checks use a temporary database and port 18001.
 
 ## Notes API
 
 - `POST /ingest`: JSON `{"type":"note","content":"Your note"}`; returns the saved item with HTTP 201.
 - `GET /items?limit=20&offset=0`: returns `items` and `total`, newest first. Maximum limit: 100.
 - Notes must contain non-whitespace text and cannot exceed 20,000 characters. Invalid inputs return HTTP 422.
-- Raw text is preserved, with a UTC timestamp, UUID, source type, and `saved` status. Saved does not mean embedded or searchable yet.
+- Raw text is preserved, with a UTC timestamp, UUID, source type, and processing status. Status moves through `saved`, `indexing`, `ready`, or `failed`.
 - SQLite is created automatically at `backend/data/inbox.db`. Set `INBOX_DB_PATH` to override it.
 - Structured request logs include request IDs, status, and duration without note bodies. Database errors return HTTP 503.
 
@@ -58,5 +58,15 @@ Open http://127.0.0.1:5173 to save notes and view the saved-items list.
 Vite proxies `/api` requests to FastAPI on port 8000 during development.
 `npm run build` verifies the production frontend build. Production deployment will need its own API reverse proxy configuration.
 
-XAMPP/Apache is not needed. No AI credentials are needed at this stage.
-Never commit `.env` files or API keys.
+## Local AI setup
+
+No paid API credentials are required. Install Ollama, start it, and download the local models:
+
+```powershell
+ollama pull embeddinggemma
+ollama pull qwen2.5:1.5b
+```
+
+Ollama must be running at `http://127.0.0.1:11434`. Copy `backend/.env.example` to `backend/.env`, then restart FastAPI after changing model settings.
+
+XAMPP/Apache is not needed. Never commit `.env` files or API keys.
